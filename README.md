@@ -1,55 +1,103 @@
-# 🌌 Luminous Ledger - Financial Nebula
+# 🦫 Beavor - Financial Nebula & Shared Expense Tracker
 
-A premium, glassmorphic financial management application designed for visual excellence and atomic data integrity. **Luminous Ledger** transforms the mundane task of tracking expenses into a world-class ambient experience.
+A premium, glassmorphic financial management and expense-splitting application built with **Flutter**, **GetX**, and **Supabase**. **Beavor** (also known as *Luminous Ledger*) transforms tracking expenses and splitting household/group bills into a seamless ambient visual experience with atomic data integrity.
 
-## ✨ Premium Features
-- **💎 Fluid Visual Experience**: Powered by the "Financial Nebula" design system, featuring advanced glassmorphism, mesh gradients, and curated Manrope/Inter typography.
-- **🏦 Multi-Wallet Intelligence**: Manage and switch between multiple funding sources (Cash, Card, Savings) with real-time balance calculations.
-- **✍️ Atomic Transaction Management**: Seamlessly add, edit, or delete transactions. The engine ensures balance integrity across all wallets using robust revert-and-apply logic.
-- **📊 Intuitive Spending Analysis**: Interactive donut charts and time-series trend analysis (Weekly/Monthly) powered by `fl_chart`.
-- **🇻🇳 Multi-Language Support**: Complete localization for English (US) and Vietnamese (VN) to support global financial journeys.
-- **☁️ Cloud-Backed Data**: Persistent storage and authentication through **Supabase** (PostgreSQL), so your ledgers stay consistent across devices when you are signed in.
+---
+
+## ✨ Features
+
+- **💎 Fluid Glassmorphic Design**: Powered by the "Financial Nebula" design system, featuring custom glassmorphism, radial ambient glows, dynamic dark themes, and curated Google Fonts (*Manrope* & *Inter*).
+- **🏦 Multi-Wallet Intelligence**: Track and manage multiple funding sources (Cash, Card, Savings) with real-time balance updates.
+- **✍️ Atomic Transaction & Category Management**: Easily create, edit, and categorize transactions with slidable item actions and instant balance calculations.
+- **🤝 Expense Splitter & Member Management**: Manage group or household members, record shared expenses, and automatically compute debt/repayment balances.
+- **📊 Intuitive Spending Analytics**: Visual financial insights with interactive donut charts and trend analysis powered by `fl_chart`.
+- **🗓️ Interactive Calendar View**: Track daily income and expenditure timeline with integrated calendar views powered by `table_calendar`.
+- **🇻🇳 Multi-Language Support**: Native localization for Vietnamese (`vi_VN`) and English (`en_US`).
+- **☁️ Supabase Cloud Sync & Local Storage**: Real-time cloud persistence with Supabase PostgreSQL, complemented by local offline storage via `get_storage`.
+- **🔄 In-App Auto Update**: Automatic version checking and background APK download/installation powered by `dio` and `open_filex`.
+
+---
 
 ## 🎨 Design Philosophy
-Luminous Ledger prioritizes **Visual Excellence**. Avoid generic colors and boring lists. The app uses:
-- **Ambient Glows**: Soft radial gradients that react to financial health.
-- **Premium Mesh Gradients**: Deep, high-contrast backgrounds for readability.
-- **No-Boundary Layouts**: Modern, fluid interfaces without unnecessary lines or borders.
+
+Beavor prioritizes **Visual Excellence**:
+- **Ambient Glows**: Soft radial background gradients that visually reflect financial status.
+- **Deep Contrast Dark Mode**: Designed for high legibility and reduced eye strain.
+- **No-Boundary Layouts**: Modern, borderless cards and glass containers for a smooth visual hierarchy.
+
+---
 
 ## 🛠️ Technology Stack
-- **Framework**: [Flutter](https://flutter.dev)
-- **State Management**: [GetX](https://pub.dev/packages/get)
-- **Backend & Auth**: [Supabase Flutter](https://pub.dev/packages/supabase_flutter)
-- **Charts**: [fl_chart](https://pub.dev/packages/fl_chart)
-- **Calendar**: [table_calendar](https://pub.dev/packages/table_calendar)
-- **HTTP**: [dio](https://pub.dev/packages/dio) (e.g. in-app update metadata)
-- **Configuration**: [flutter_dotenv](https://pub.dev/packages/flutter_dotenv)
-- **Fonts**: [Google Fonts (Manrope, Inter)](https://fonts.google.com/)
+
+- **Framework**: [Flutter](https://flutter.dev) (Dart SDK `^3.10.0`)
+- **State Management & Navigation**: [GetX](https://pub.dev/packages/get)
+- **Backend & Authentication**: [Supabase Flutter](https://pub.dev/packages/supabase_flutter)
+- **Local Storage**: [GetStorage](https://pub.dev/packages/get_storage)
+- **Data Visualization**: [fl_chart](https://pub.dev/packages/fl_chart)
+- **Calendar Component**: [table_calendar](https://pub.dev/packages/table_calendar)
+- **HTTP Client**: [Dio](https://pub.dev/packages/dio)
+- **Environment Configuration**: [flutter_dotenv](https://pub.dev/packages/flutter_dotenv)
+- **UI Enhancements**: `flutter_slidable`, `image_picker`, `google_fonts`, `share_plus`, `open_filex`
+
+---
+
+## 📁 Project Structure
+
+```text
+lib/
+├── controllers/          # GetX Controllers for app logic & state
+├── core/                 # Core utilities, app theme, i18n, and Supabase config
+│   ├── i18n/            # Internationalization (EN / VI)
+│   ├── services/        # Core services (Supabase initialization)
+│   └── theme/           # App design tokens & dark glassmorphic theme
+├── models/               # Data models (Transaction, Category, Wallet, Member, etc.)
+├── screens/              # UI Screen views
+│   ├── dashboard/       # Main dashboard overview
+│   ├── analysis/        # Chart analytics & spending reports
+│   ├── calendar/        # Calendar timeline view
+│   ├── expense_splitter/# Group bill splitting & debt settlement
+│   ├── members/         # Member management for shared expenses
+│   ├── transaction_history/ # Full transaction log & filtering
+│   └── profile/         # User profile & settings
+├── services/             # Application services (Expense Splitter, Auto-Update, Local Storage)
+└── widgets/              # Custom reusable glassmorphic UI components
+```
 
 ---
 
 ## 🚀 Getting Started
 
 ### Prerequisites
-- Flutter SDK (latest stable)
-- Dart SDK
-- A [Supabase](https://supabase.com/) project with tables and auth configured for this app
-- A root `.env` file (not committed) with at least:
-  - `SUPABASE_URL`
-  - `SUPABASE_ANON_KEY`
-  - Optional: `UPDATE_METADATA_URL` for custom update checks
 
-### Installation
-1. Clone the repository:
+- [Flutter SDK](https://flutter.dev/docs/get-started/install) (v3.10.0 or higher)
+- A [Supabase](https://supabase.com/) project with PostgreSQL database and Authentication configured.
+
+### Environment Setup
+
+Create a `.env` file in the project root:
+
+```env
+SUPABASE_URL=https://your-supabase-project.supabase.co
+SUPABASE_ANON_KEY=your-supabase-anon-key
+
+# Optional: Remote JSON URL for in-app APK auto-update checks
+UPDATE_METADATA_URL=https://your-domain.com/update_metadata.json
+```
+
+### Installation & Execution
+
+1. **Clone the repository**:
    ```bash
-   git clone https://github.com/trieu-dev/luminous_ledger.git
+   git clone https://github.com/trieu-dev/beavor.git
+   cd beavor
    ```
-2. Add your `.env` in the project root with the variables above.
-3. Fetch dependencies:
+
+2. **Install dependencies**:
    ```bash
    flutter pub get
    ```
-4. Run the application:
+
+3. **Run the app**:
    ```bash
    flutter run
    ```
@@ -57,9 +105,12 @@ Luminous Ledger prioritizes **Visual Excellence**. Avoid generic colors and bori
 ---
 
 ## 📈 Roadmap
-- [ ] 🎯 **Monthly Budgeting & Targets**: Visual progress rings for category spending.
-- [ ] 🤖 **Smart Insights**: AI-style descriptive spending feedback.
-- [ ] 🔒 **Biometric Security**: FaceID/Fingerprint protection.
-- [ ] 🗓️ **Recurring Bills Manager**: Automatic subscription tracking.
 
-Developed with ❤️ by the **Luminous Design Team**.
+- [ ] 🎯 **Monthly Budgeting & Goals**: Set visual spending limits per category.
+- [ ] 🤖 **Smart Financial Insights**: AI-powered spending tips and summary reports.
+- [ ] 🔒 **Biometric Security**: FaceID / Fingerprint application lock.
+- [ ] 🗓️ **Recurring Subscription Tracker**: Scheduled notifications for recurring bills.
+
+---
+
+Developed with ❤️ by **Trieu Dev**.
